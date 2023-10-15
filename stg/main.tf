@@ -38,6 +38,6 @@ module "eks" {
    secret_key = "xTWLi4imh9fqUd43iO9PPffbus4WpByR130yhb1m"
    node_instance_type = "t2.micro"
    desired_number_of_nodes = 1
-   max_number_of_nodes = 1
-   min_number_of_nodes = 0
+   max_number_of_nodes = 3
+   min_number_of_nodes = 1
 }

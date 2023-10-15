@@ -148,15 +148,15 @@ spec:
           type: RuntimeDefault
       serviceAccountName: cluster-autoscaler
       containers:
-        - image: registry.k8s.io/autoscaling/cluster-autoscaler:v1.27
+        - image: registry.k8s.io/autoscaling/cluster-autoscaler:v1.27.3
           name: cluster-autoscaler
           resources:
             limits:
               cpu: 100m
-              memory: 600Mi
+              memory: 300Mi
             requests:
               cpu: 100m
-              memory: 600Mi
+              memory: 300Mi
           command:
             - ./cluster-autoscaler
             - --v=4
@@ -164,7 +164,7 @@ spec:
             - --cloud-provider=aws
             - --skip-nodes-with-local-storage=false
             - --expander=least-waste
-            - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/demo
+            - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/first-class-fly-stg
           volumeMounts:
             - name: ssl-certs
               mountPath: /etc/ssl/certs/ca-certificates.crt #/etc/ssl/certs/ca-bundle.crt for Amazon Linux Worker Nodes

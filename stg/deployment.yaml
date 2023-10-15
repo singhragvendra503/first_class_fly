@@ -31,13 +31,12 @@ metadata:
   name: hpaservice
   namespace: demo-ns
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     name: hpapod
   ports:
-  - port: 8080
+  - port: 80
     targetPort: 8080
-    nodePort: 30005
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -49,8 +48,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: hpadeployment
-  minReplicas: 2
-  maxReplicas: 100
+  minReplicas: 1
+  maxReplicas: 3
   metrics:
     - type: Resource
       resource:
