@@ -35,4 +35,4 @@ jobs:
       - name: Publish build to S3
         if: success() # This step will only run if the previous steps (build) were successful
         run: |
-          aws s3 sync ./dist/apps/frontend/exported s3://first-class-fly/
+          aws s3 sync ./dist/apps/frontend/exported/* s3://first-class-fly-stg/

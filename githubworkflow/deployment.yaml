@@ -1,26 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: primuslearning
-  labels:
-    app: primuslearning
+  name: hpadeployment
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: primuslearning
+      name: hpapod
   template:
     metadata:
       labels:
-        app: primuslearning
+        name: hpapod
     spec:
       containers:
-        - name: primuslearning
-          image: 274127640471.dkr.ecr.us-east-2.amazonaws.com/primuslearning:1.1
-          resources:
+      - name: mavenappcontainer
+        image: 049526001344.dkr.ecr.us-west-1.amazonaws.com/first-class-fly-ecr:IMAGE_TAG
+        ports:
+        - containerPort: 4200
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
           limits:
-            memory: "128Mi"
-            cpu: "500m"
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 8080
+            cpu: "100m"
+            memory: "300Mi"

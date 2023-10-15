@@ -29,6 +29,7 @@ module "s3_CDN" {
 module "eks" {
  source = "../module/eks-cluster"
    env = "production"
+   cluster_name = "first-class-fly-prod"
    aws_region = "us-west-1"
    azs = ["us-west-1a", "us-west-1c"]
    public_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
