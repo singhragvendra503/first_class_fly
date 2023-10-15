@@ -22,12 +22,6 @@ resource "aws_iam_role_policy_attachment" "demo-AmazonEKSClusterPolicy" {
   role       = aws_iam_role.demo.name
 }
 
-variable "cluster_name" {
-  default = "demo"
-  type = string
-  description = "AWS EKS CLuster Name"
-  nullable = false
-}
 
 resource "aws_eks_cluster" "demo" {
   name     = var.cluster_name

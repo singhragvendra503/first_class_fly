@@ -22,12 +22,17 @@ jobs:
 
       - name: Build your application
         run: |
-          # Replace with commands to build your application
-          # For example, if you're using Node.js:
-          # npm install
-          # npm run build
+          npm install
+          nx build frontend
+          nx test frontend
+
+      - name: Build your application
+        if: success()
+        run: |
+          npm install
+          nx export frontend
 
       - name: Publish build to S3
         if: success() # This step will only run if the previous steps (build) were successful
         run: |
-          aws s3 sync /path/to/build s3://your-s3-bucket-name
+          aws s3 sync ./dist/apps/frontend/exported s3://first-class-fly/

@@ -44,3 +44,10 @@ variable "max_number_of_nodes" {
 variable "desired_number_of_nodes" {
   type = number
 }
+
+variable "cluster_name" {
+  default = "demo"
+  type = string
+  description = "AWS EKS CLuster Name"
+  nullable = false
+}
