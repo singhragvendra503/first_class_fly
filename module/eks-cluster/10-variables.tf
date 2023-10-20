@@ -2,6 +2,18 @@ variable "env" {
   description = "Environment name."
   type        = string
 }
+variable "node_iam_role"{
+  type = string
+}
+variable "eks_cluster_role"{
+type = string
+}
+variable "eks_cluster_autoscaler_role"{
+  type = string
+}
+variable "eks_cluster_autoscaler_policy"{
+  type = string
+}
 variable "access_key" {
   type = string
 }

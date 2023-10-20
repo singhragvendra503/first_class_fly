@@ -26,7 +26,7 @@ resource "aws_s3_bucket_versioning" "this" {
 }
 # Create CloudFront origin access control
 resource "aws_cloudfront_origin_access_control" "demo_origin_access_control" {
-  name                            = "${aws_s3_bucket.this.id}.s3.us-east-1.amazonaws.com"
+  name                            = "${aws_s3_bucket.this.id}.s3.us-west-1.amazonaws.com"
   origin_access_control_origin_type = "s3"
   signing_behavior                = "no-override"
   signing_protocol                = "sigv4"
@@ -37,7 +37,7 @@ resource "aws_cloudfront_distribution" "demo_distribution" {
   origin {
     domain_name              = aws_s3_bucket.this.bucket_regional_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.demo_origin_access_control.id
-    origin_id                = "${aws_s3_bucket.this.id}.s3.us-east-1.amazonaws.com"
+    origin_id                = "${aws_s3_bucket.this.id}.s3.us-west-1.amazonaws.com"
   }
 
   enabled             = true
@@ -48,7 +48,7 @@ resource "aws_cloudfront_distribution" "demo_distribution" {
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${aws_s3_bucket.this.id}.s3.us-east-1.amazonaws.com"
+    target_origin_id = "${aws_s3_bucket.this.id}.s3.us-west-1.amazonaws.com"
 
     forwarded_values {
       query_string = false
@@ -79,8 +79,11 @@ resource "aws_cloudfront_distribution" "demo_distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+#    cloudfront_default_certificate = true
+   ssl_support_method = "sni-only" 
+   acm_certificate_arn = var.cert_arn
   }
+aliases = ["${var.alt_domain}"]
 
   #Custom error response for single page applications
   custom_error_response {
@@ -114,7 +117,7 @@ resource "aws_s3_bucket_policy" "demo_website_bucket_policy" {
             "Resource": "arn:aws:s3:::${aws_s3_bucket.this.id}/*",
             "Condition": {
                 "StringEquals": {
-                    "AWS:SourceArn": "arn:aws:cloudfront::750548017325:distribution/${aws_cloudfront_distribution.demo_distribution.id}"
+                    "AWS:SourceArn": "arn:aws:cloudfront::049526001344:distribution/${aws_cloudfront_distribution.demo_distribution.id}"
                 }
             }
         }

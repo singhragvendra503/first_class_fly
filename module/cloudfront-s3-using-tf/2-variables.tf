@@ -10,3 +10,12 @@ variable "bucket_name" {
 variable "environment" {
   type = string
 }
+variable "alt_domain"{
+  type = string
+}
+variable "cert_arn"{
+  type = string
+}
+#variable "aws_region"{
+#  type = string
+#}
